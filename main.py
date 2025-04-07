@@ -1,22 +1,519 @@
 def HINTS():
-    global Fire
-    camp = sprites.create(img("""
-        e e e . . 2 2 . . e 5
-        . e 5 e . 2 4 . e e e
-        2 . e e . 4 4 . e 5 e
-        2 4 4 5 e 5 4 e 5 e .
-        . 2 4 e e 2 e e e . .
-        . 2 5 5 e 2 5 e 4 4 .
-        e e 5 5 e e 5 e 4 4 .
-        e 5 5 5 4 e e e e . .
-        e e 4 4 5 5 e e 5 e .
-        . 4 4 . e 5 . . e e e
-        . . . . e e . . . e .
-        . . . . . e . . . . .
-    """),
+    global river, rain, valley, rock, camp, pond
+    river = sprites.create(img("""
+            7 7 7 7 7 7 7 7 7 7 7
+            8 8 8 8 8 8 8 8 8 8 8
+            8 6 8 8 6 6 8 6 8 8 8
+            6 6 6 6 6 6 6 6 6 6 6
+            6 1 1 6 6 6 6 6 6 1 1
+            6 6 6 6 6 1 1 6 6 6 6
+            6 6 6 6 6 6 6 6 6 6 6
+            8 6 8 8 6 8 8 8 6 8 8
+            8 8 8 8 8 8 8 8 8 8 8
+            7 7 7 7 7 7 7 7 7 7 7
+            """),
         SpriteKind.player)
-Fire: Sprite = None
-mySprite = None
+    river.set_position(46, 111)
+    rain = sprites.create(img("""
+            . . 1 1 1 . . 1 1 1 . .
+            . 1 1 1 1 1 1 1 1 1 1 1
+            1 1 1 1 1 1 1 1 1 1 1 1
+            1 1 1 1 1 1 1 1 1 1 1 1
+            . 8 1 8 . 1 1 8 . 8 1 1
+            . 8 8 8 . 8 8 8 . 8 8 8
+            . 8 8 8 . 8 8 8 . 8 8 8
+            . 8 8 8 . 8 8 8 . 8 8 8
+            . 8 8 8 . 8 8 8 . 8 8 8
+            . 8 8 8 . 8 8 8 . 8 8 8
+            . 8 8 8 . 8 8 8 . 8 8 8
+            """),
+        SpriteKind.player)
+    rain.set_position(60, 111)
+    valley = sprites.create(img("""
+            . . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . . .
+            . . . . 1 1 1 . . . 1 1 1 . . .
+            . . . 1 1 7 1 . . . 1 7 1 1 . .
+            . . . 1 7 7 1 . . 1 1 7 7 1 . .
+            . . 1 7 7 7 7 1 . 1 7 7 7 1 . .
+            . 1 1 7 d d 7 7 1 1 7 7 7 1 1 .
+            1 1 7 7 7 7 7 7 1 7 7 7 7 7 1 .
+            1 7 7 7 7 7 7 7 7 7 7 d 7 7 1 1
+            7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 1
+            7 7 7 d 7 7 7 7 7 7 7 7 7 7 7 7
+            7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
+            """),
+        SpriteKind.player)
+    valley.set_position(77, 108)
+    rock = sprites.create(img("""
+            . . . . . . . . b b b b b . . .
+            . . . . . . b b d d d d b b . .
+            . . . . . b d d d d d d d c . .
+            . . . . c d d d d d d d d c . .
+            . . . c b d d d d d d d b c c .
+            . . . c b b d d d d b c c c c .
+            . . c c d b b b c c c c c c c .
+            . . c c c d d d d c c d d d c c
+            . c d b c c b b c c d d d d d c
+            . c b d d b b b c c d d d d d c
+            . c c b b b b c b c b d d d b c
+            c b b c c c c c b b b b b c c c
+            c c b b c c c c c d d d d d b c
+            c c c c c c b b b b b c c c c c
+            c c c c c c c b b b b b c c c c
+            c c c c c c c c b b b b b c c c
+            """),
+        SpriteKind.player)
+    rock.set_position(93, 111)
+    rock.scale = 0.75
+    camp = sprites.create(img("""
+            e e e . . 2 2 . . e 5
+            . e 5 e . 2 4 . e e e
+            2 . e e . 4 4 . e 5 e
+            2 4 4 5 e 5 4 e 5 e .
+            . 2 4 e e 2 e e e . .
+            . 2 5 5 e 2 5 e 4 4 .
+            e e 5 5 e e 5 e 4 4 .
+            e 5 5 5 4 e e e e . .
+            e e 4 4 5 5 e e 5 e .
+            . 4 4 . e 5 . . e e e
+            . . . . e e . . . e .
+            . . . . . e . . . . .
+            """),
+        SpriteKind.player)
+    camp.set_position(107, 111)
+    pond = sprites.create(img("""
+            7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
+            7 7 7 c 6 6 6 6 6 6 6 6 c 7 7 7
+            7 7 c 6 6 1 1 6 6 6 6 6 6 c 7 7
+            7 7 6 6 1 6 6 1 6 6 6 6 6 6 7 7
+            7 7 6 6 6 6 6 6 6 6 6 6 6 6 7 7
+            7 7 6 6 6 6 6 6 6 6 1 1 6 6 7 7
+            7 7 6 6 6 6 6 6 6 1 6 6 1 6 7 7
+            7 7 6 6 6 6 6 6 6 6 6 6 6 6 7 7
+            7 7 6 6 6 1 1 6 6 6 6 6 6 6 7 7
+            7 7 6 6 1 6 6 1 6 6 6 6 6 6 7 7
+            7 7 6 6 6 6 6 6 6 6 6 6 6 6 7 7
+            7 7 6 6 6 6 6 6 6 6 1 1 6 6 7 7
+            7 7 c 6 6 6 6 6 6 6 6 6 6 c 7 7
+            7 7 7 c c c c c c c c c c 7 7 7
+            7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
+            7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
+            """),
+        SpriteKind.player)
+    pond.set_position(122, 111)
+    pond.scale = 0.8
+def Pond():
+    global P2, O2, N2, D
+    P2 = sprites.create(img("""
+            . . . . . . .
+            . 1 1 1 1 1 .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 1 1 1 1 .
+            . 1 . . . . .
+            . 1 . . . . .
+            """),
+        SpriteKind.player)
+    P2.set_position(93, 63)
+    O2 = sprites.create(img("""
+            . . . . . . .
+            . . 1 1 1 . .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . . 1 1 1 . .
+            . . . . . . .
+            """),
+        SpriteKind.player)
+    O2.set_position(93, 73)
+    N2 = sprites.create(img("""
+            . 1 1 . . 1 .
+            . 1 1 . . 1 .
+            . 1 1 1 . 1 .
+            . 1 . 1 1 1 .
+            . 1 . . 1 1 .
+            . 1 . . 1 1 .
+            . 1 . . . 1 .
+            """),
+        SpriteKind.player)
+    N2.set_position(93, 83)
+    D = sprites.create(img("""
+            . . . . . . .
+            . 1 1 1 1 . .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 1 1 1 . .
+            . . . . . . .
+            """),
+        SpriteKind.player)
+    D.set_position(93, 93)
+def Camp():
+    global C2, A3, M, P
+    C2 = sprites.create(img("""
+            . . . . . . .
+            . . 1 1 1 1 .
+            . 1 . . . . .
+            . 1 . . . . .
+            . 1 . . . . .
+            . . 1 1 1 1 .
+            . . . . . . .
+            """),
+        SpriteKind.player)
+    C2.set_position(64, 63)
+    A3 = sprites.create(img("""
+            . . 1 1 1 . .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 1 1 1 1 .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            """),
+        SpriteKind.player)
+    A3.set_position(73, 63)
+    M = sprites.create(img("""
+            1 . . . . . 1
+            1 1 . . . 1 1
+            1 1 1 . 1 1 1
+            1 . 1 1 1 . 1
+            1 . . 1 . . 1
+            1 . . . . . 1
+            1 . . . . . 1
+            """),
+        SpriteKind.player)
+    M.set_position(83, 63)
+    P = sprites.create(img("""
+            . . . . . . .
+            . 1 1 1 1 1 .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 1 1 1 1 .
+            . 1 . . . . .
+            . 1 . . . . .
+            """),
+        SpriteKind.player)
+    P.set_position(93, 63)
+def Rain():
+    global R, A, I2, N
+    R = sprites.create(img("""
+            . . 1 1 1 . .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 1 1 1 1 .
+            . 1 1 1 . . .
+            . 1 . 1 1 . .
+            . 1 . . . 1 .
+            """),
+        SpriteKind.player)
+    R.set_position(25, 43)
+    A = sprites.create(img("""
+            . . 1 1 1 . .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 1 1 1 1 .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            """),
+        SpriteKind.player)
+    A.set_position(25, 54)
+    I2 = sprites.create(img("""
+            . . . . . . .
+            . . . 1 . . .
+            . . . 1 . . .
+            . . . 1 . . .
+            . . . 1 . . .
+            . . . 1 . . .
+            . . . 1 . . .
+            """),
+        SpriteKind.player)
+    I2.set_position(25, 63)
+    N = sprites.create(img("""
+            . 1 1 . . 1 .
+            . 1 1 . . 1 .
+            . 1 1 1 . 1 .
+            . 1 . 1 1 1 .
+            . 1 . . 1 1 .
+            . 1 . . 1 1 .
+            . 1 . . . 1 .
+            """),
+        SpriteKind.player)
+    N.set_position(25, 73)
+def Rock():
+    global R3, O, C, K
+    R3 = sprites.create(img("""
+            . . 1 1 1 . .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 1 1 1 1 .
+            . 1 1 1 . . .
+            . 1 . 1 1 . .
+            . 1 . . . 1 .
+            """),
+        SpriteKind.player)
+    R3.set_position(64, 43)
+    O = sprites.create(img("""
+            . . . . . . .
+            . . 1 1 1 . .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . . 1 1 1 . .
+            . . . . . . .
+            """),
+        SpriteKind.player)
+    O.set_position(64, 53)
+    C = sprites.create(img("""
+            . . . . . . .
+            . . 1 1 1 1 .
+            . 1 . . . . .
+            . 1 . . . . .
+            . 1 . . . . .
+            . . 1 1 1 1 .
+            . . . . . . .
+            """),
+        SpriteKind.player)
+    C.set_position(64, 63)
+    K = sprites.create(img("""
+            . 1 . . 1 1 .
+            . 1 . 1 1 . .
+            . 1 1 1 . . .
+            . 1 1 1 . . .
+            . 1 . 1 1 . .
+            . 1 . . 1 1 .
+            . 1 . . . 1 .
+            """),
+        SpriteKind.player)
+    K.set_position(64, 73)
+
+def on_countdown_end():
+    enemySprite.follow(Hero)
+info.on_countdown_end(on_countdown_end)
+
+def River():
+    global R, I, V, E, R2
+    R = sprites.create(img("""
+            . . 1 1 1 . .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 1 1 1 1 .
+            . 1 1 1 . . .
+            . 1 . 1 1 . .
+            . 1 . . . 1 .
+            """),
+        SpriteKind.player)
+    R.set_position(25, 43)
+    I = sprites.create(img("""
+            . . . . . . .
+            . . . 1 . . .
+            . . . 1 . . .
+            . . . 1 . . .
+            . . . 1 . . .
+            . . . 1 . . .
+            . . . 1 . . .
+            """),
+        SpriteKind.player)
+    I.set_position(35, 43)
+    V = sprites.create(img("""
+            . . . . . . .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . . 1 . 1 . .
+            . . . 1 . . .
+            """),
+        SpriteKind.player)
+    V.set_position(44, 43)
+    E = sprites.create(img("""
+            . 1 1 1 1 1 .
+            . 1 . . . . .
+            . 1 . . . . .
+            . 1 1 1 1 . .
+            . 1 . . . . .
+            . 1 . . . . .
+            . 1 1 1 1 1 .
+            """),
+        SpriteKind.player)
+    E.set_position(54, 43)
+    R2 = sprites.create(img("""
+            . . 1 1 1 . .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 1 1 1 1 .
+            . 1 1 1 . . .
+            . 1 . 1 1 . .
+            . 1 . . . 1 .
+            """),
+        SpriteKind.player)
+    R2.set_position(64, 43)
+def Valley():
+    global V2, A2, L, L2, E2, Y
+    V2 = sprites.create(img("""
+            . . . . . . .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . . 1 . 1 . .
+            . . . 1 . . .
+            """),
+        SpriteKind.player)
+    V2.set_position(44, 44)
+    A2 = sprites.create(img("""
+            . . 1 1 1 . .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 1 1 1 1 .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            """),
+        SpriteKind.player)
+    A2.set_position(44, 54)
+    L = sprites.create(img("""
+            . . . . . . .
+            . 1 . . . . .
+            . 1 . . . . .
+            . 1 . . . . .
+            . 1 . . . . .
+            . 1 1 1 1 1 .
+            . . . . . . .
+            """),
+        SpriteKind.player)
+    L.set_position(44, 63)
+    L2 = sprites.create(img("""
+            . . . . . . .
+            . 1 . . . . .
+            . 1 . . . . .
+            . 1 . . . . .
+            . 1 . . . . .
+            . 1 1 1 1 1 .
+            . . . . . . .
+            """),
+        SpriteKind.player)
+    L2.set_position(44, 73)
+    E2 = sprites.create(img("""
+            . 1 1 1 1 1 .
+            . 1 . . . . .
+            . 1 . . . . .
+            . 1 1 1 1 . .
+            . 1 . . . . .
+            . 1 . . . . .
+            . 1 1 1 1 1 .
+            """),
+        SpriteKind.player)
+    E2.set_position(44, 83)
+    Y = sprites.create(img("""
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . 1 . . . 1 .
+            . . 1 1 1 . .
+            . . . 1 . . .
+            . . . 1 . . .
+            . . . 1 . . .
+            """),
+        SpriteKind.player)
+    Y.set_position(44, 94)
+
+def on_on_overlap(sprite, otherSprite):
+    game.game_over(False)
+sprites.on_overlap(SpriteKind.enemy, SpriteKind.player, on_on_overlap)
+
+def Nest():
+    global N3, E3, S, D
+    N3 = sprites.create(img("""
+            . 1 1 . . 1 .
+            . 1 1 . . 1 .
+            . 1 1 1 . 1 .
+            . 1 . 1 1 1 .
+            . 1 . . 1 1 .
+            . 1 . . 1 1 .
+            . 1 . . . 1 .
+            """),
+        SpriteKind.player)
+    N3.set_position(93, 83)
+    E3 = sprites.create(img("""
+            . 1 1 1 1 1 .
+            . 1 . . . . .
+            . 1 . . . . .
+            . 1 1 1 1 . .
+            . 1 . . . . .
+            . 1 . . . . .
+            . 1 1 1 1 1 .
+            """),
+        SpriteKind.player)
+    E3.set_position(102, 83)
+    S = sprites.create(img("""
+            . 1 1 1 1 1 .
+            . 1 . . . . .
+            . 1 . . . . .
+            . 1 1 1 1 1 .
+            . . . . . 1 .
+            . . . . . 1 .
+            . 1 1 1 1 1 .
+            """),
+        SpriteKind.player)
+    S.set_position(112, 83)
+    D = sprites.create(img("""
+            . . . . . . .
+            . 1 1 1 1 1 .
+            . . . 1 . . .
+            . . . 1 . . .
+            . . . 1 . . .
+            . . . 1 . . .
+            . . . . . . .
+            """),
+        SpriteKind.player)
+    D.set_position(122, 83)
+
+def on_on_score():
+    game.game_over(True)
+info.on_score(35, on_on_score)
+
+S: Sprite = None
+E3: Sprite = None
+N3: Sprite = None
+Y: Sprite = None
+E2: Sprite = None
+L2: Sprite = None
+L: Sprite = None
+A2: Sprite = None
+V2: Sprite = None
+R2: Sprite = None
+E: Sprite = None
+V: Sprite = None
+I: Sprite = None
+K: Sprite = None
+C: Sprite = None
+O: Sprite = None
+R3: Sprite = None
+N: Sprite = None
+I2: Sprite = None
+A: Sprite = None
+R: Sprite = None
+P: Sprite = None
+M: Sprite = None
+A3: Sprite = None
+C2: Sprite = None
+D: Sprite = None
+N2: Sprite = None
+O2: Sprite = None
+P2: Sprite = None
+pond: Sprite = None
+camp: Sprite = None
+rock: Sprite = None
+valley: Sprite = None
+rain: Sprite = None
+river: Sprite = None
+Hero: Sprite = None
+enemySprite: Sprite = None
 scene.set_background_image(img("""
     dddddddddddddddd111111d1dddddddddddddddd111111111111111111111ddddddddddddddddddddddd1111111ddddddddddddddddddddddddddddddbbbbbbbbbbbbbbbbbbbbb111111111111
     11dddddddddddddddddddddddddddddddddb11111111111111111111111111111ddddddddddddddddddddddd11111ddddddddddddddddddddddddddbbbbbbbbbbbbbbbbbbbbb11111111111111
@@ -159,6 +656,15 @@ scene.set_background_image(img("""
     ..........................................................................................................................................................
     ..........................................................................................................................................................
     """))
+info.start_countdown(90)
+HINTS()
+River()
+Rock()
+Rain()
+Valley()
+Camp()
+Pond()
+Nest()
 info.set_score(0)
 nameslist = ["river", "rain", "valley", "rock", "camp", "pond", "nest"]
 enemySprite = sprites.create(img("""
@@ -187,7 +693,7 @@ enemySprite = sprites.create(img("""
         ........................
         ........................
         """),
-    SpriteKind.player)
+    SpriteKind.enemy)
 Hero = sprites.create(img("""
         . . . . . . 5 . 5 . . . . . . .
         . . . . . f 5 5 5 f f . . . . .
@@ -215,3 +721,7 @@ if info.score() == 40:
     game.game_over(True)
 if info.score() == 40:
     game.game_over(True)
+
+user_input = game.ask_for_string("Type a hint name")
+if user_input == "river" or user_input == "River":
+    River()

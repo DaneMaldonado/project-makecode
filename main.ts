@@ -11,20 +11,7 @@ function HINTS () {
         8 8 8 8 8 8 8 8 8 8 8 
         7 7 7 7 7 7 7 7 7 7 7 
         `, SpriteKind.Player)
-    camp = sprites.create(img`
-        e e e . . 2 2 . . e 5 
-        . e 5 e . 2 4 . e e e 
-        2 . e e . 4 4 . e 5 e 
-        2 4 4 5 e 5 4 e 5 e . 
-        . 2 4 e e 2 e e e . . 
-        . 2 5 5 e 2 5 e 4 4 . 
-        e e 5 5 e e 5 e 4 4 . 
-        e 5 5 5 4 e e e e . . 
-        e e 4 4 5 5 e e 5 e . 
-        . 4 4 . e 5 . . e e e 
-        . . . . e e . . . e . 
-        . . . . . e . . . . . 
-        `, SpriteKind.Player)
+    river.setPosition(46, 111)
     rain = sprites.create(img`
         . . 1 1 1 . . 1 1 1 . . 
         . 1 1 1 1 1 1 1 1 1 1 1 
@@ -38,6 +25,26 @@ function HINTS () {
         . 8 8 8 . 8 8 8 . 8 8 8 
         . 8 8 8 . 8 8 8 . 8 8 8 
         `, SpriteKind.Player)
+    rain.setPosition(60, 111)
+    valley = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . 1 1 1 . . . 1 1 1 . . . 
+        . . . 1 1 7 1 . . . 1 7 1 1 . . 
+        . . . 1 7 7 1 . . 1 1 7 7 1 . . 
+        . . 1 7 7 7 7 1 . 1 7 7 7 1 . . 
+        . 1 1 7 d d 7 7 1 1 7 7 7 1 1 . 
+        1 1 7 7 7 7 7 7 1 7 7 7 7 7 1 . 
+        1 7 7 7 7 7 7 7 7 7 7 d 7 7 1 1 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 1 
+        7 7 7 d 7 7 7 7 7 7 7 7 7 7 7 7 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+        `, SpriteKind.Player)
+    valley.setPosition(77, 108)
     rock = sprites.create(img`
         . . . . . . . . b b b b b . . . 
         . . . . . . b b d d d d b b . . 
@@ -56,30 +63,420 @@ function HINTS () {
         c c c c c c c b b b b b c c c c 
         c c c c c c c c b b b b b c c c 
         `, SpriteKind.Player)
-    valley = sprites.create(img`
-        . . . . . . . . b b b b b . . . 
-        . . . . . . b b d d d d b b . . 
-        . . . . . b d d d d d d d c . . 
-        . . . . c d d d d d d d d c . . 
-        . . . c b d d d d d d d b c c . 
-        . . . c b b d d d d b c c c c . 
-        . . c c d b b b c c c c c c c . 
-        . . c c c d d d d c c d d d c c 
-        . c d b c c b b c c d d d d d c 
-        . c b d d b b b c c d d d d d c 
-        . c c b b b b c b c b d d d b c 
-        c b b c c c c c b b b b b c c c 
-        c c b b c c c c c d d d d d b c 
-        c c c c c c b b b b b c c c c c 
-        c c c c c c c b b b b b c c c c 
-        c c c c c c c c b b b b b c c c 
+    rock.setPosition(93, 111)
+    rock.scale = 0.75
+    camp = sprites.create(img`
+        e e e . . 2 2 . . e 5 
+        . e 5 e . 2 4 . e e e 
+        2 . e e . 4 4 . e 5 e 
+        2 4 4 5 e 5 4 e 5 e . 
+        . 2 4 e e 2 e e e . . 
+        . 2 5 5 e 2 5 e 4 4 . 
+        e e 5 5 e e 5 e 4 4 . 
+        e 5 5 5 4 e e e e . . 
+        e e 4 4 5 5 e e 5 e . 
+        . 4 4 . e 5 . . e e e 
+        . . . . e e . . . e . 
+        . . . . . e . . . . . 
         `, SpriteKind.Player)
+    camp.setPosition(107, 111)
+    pond = sprites.create(img`
+        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+        7 7 7 c 6 6 6 6 6 6 6 6 c 7 7 7 
+        7 7 c 6 6 1 1 6 6 6 6 6 6 c 7 7 
+        7 7 6 6 1 6 6 1 6 6 6 6 6 6 7 7 
+        7 7 6 6 6 6 6 6 6 6 6 6 6 6 7 7 
+        7 7 6 6 6 6 6 6 6 6 1 1 6 6 7 7 
+        7 7 6 6 6 6 6 6 6 1 6 6 1 6 7 7 
+        7 7 6 6 6 6 6 6 6 6 6 6 6 6 7 7 
+        7 7 6 6 6 1 1 6 6 6 6 6 6 6 7 7 
+        7 7 6 6 1 6 6 1 6 6 6 6 6 6 7 7 
+        7 7 6 6 6 6 6 6 6 6 6 6 6 6 7 7 
+        7 7 6 6 6 6 6 6 6 6 1 1 6 6 7 7 
+        7 7 c 6 6 6 6 6 6 6 6 6 6 c 7 7 
+        7 7 7 c c c c c c c c c c 7 7 7 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+        `, SpriteKind.Player)
+    pond.setPosition(122, 111)
+    pond.scale = 0.8
 }
-let valley: Sprite = null
-let rock: Sprite = null
-let rain: Sprite = null
+function Pond () {
+    P2 = sprites.create(img`
+        . . . . . . . 
+        . 1 1 1 1 1 . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 1 1 1 1 . 
+        . 1 . . . . . 
+        . 1 . . . . . 
+        `, SpriteKind.Player)
+    P2.setPosition(93, 63)
+    O2 = sprites.create(img`
+        . . . . . . . 
+        . . 1 1 1 . . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . . 1 1 1 . . 
+        . . . . . . . 
+        `, SpriteKind.Player)
+    O2.setPosition(93, 73)
+    N2 = sprites.create(img`
+        . 1 1 . . 1 . 
+        . 1 1 . . 1 . 
+        . 1 1 1 . 1 . 
+        . 1 . 1 1 1 . 
+        . 1 . . 1 1 . 
+        . 1 . . 1 1 . 
+        . 1 . . . 1 . 
+        `, SpriteKind.Player)
+    N2.setPosition(93, 83)
+    D = sprites.create(img`
+        . . . . . . . 
+        . 1 1 1 1 . . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 1 1 1 . . 
+        . . . . . . . 
+        `, SpriteKind.Player)
+    D.setPosition(93, 93)
+}
+function Camp () {
+    C2 = sprites.create(img`
+        . . . . . . . 
+        . . 1 1 1 1 . 
+        . 1 . . . . . 
+        . 1 . . . . . 
+        . 1 . . . . . 
+        . . 1 1 1 1 . 
+        . . . . . . . 
+        `, SpriteKind.Player)
+    C2.setPosition(64, 63)
+    A3 = sprites.create(img`
+        . . 1 1 1 . . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 1 1 1 1 . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        `, SpriteKind.Player)
+    A3.setPosition(73, 63)
+    M = sprites.create(img`
+        1 . . . . . 1 
+        1 1 . . . 1 1 
+        1 1 1 . 1 1 1 
+        1 . 1 1 1 . 1 
+        1 . . 1 . . 1 
+        1 . . . . . 1 
+        1 . . . . . 1 
+        `, SpriteKind.Player)
+    M.setPosition(83, 63)
+    P = sprites.create(img`
+        . . . . . . . 
+        . 1 1 1 1 1 . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 1 1 1 1 . 
+        . 1 . . . . . 
+        . 1 . . . . . 
+        `, SpriteKind.Player)
+    P.setPosition(93, 63)
+}
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    user_input = game.askForString("Type a hint name")
+})
+function Rain () {
+    R = sprites.create(img`
+        . . 1 1 1 . . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 1 1 1 1 . 
+        . 1 1 1 . . . 
+        . 1 . 1 1 . . 
+        . 1 . . . 1 . 
+        `, SpriteKind.Player)
+    R.setPosition(25, 43)
+    A = sprites.create(img`
+        . . 1 1 1 . . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 1 1 1 1 . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        `, SpriteKind.Player)
+    A.setPosition(25, 54)
+    I2 = sprites.create(img`
+        . . . . . . . 
+        . . . 1 . . . 
+        . . . 1 . . . 
+        . . . 1 . . . 
+        . . . 1 . . . 
+        . . . 1 . . . 
+        . . . 1 . . . 
+        `, SpriteKind.Player)
+    I2.setPosition(25, 63)
+    N = sprites.create(img`
+        . 1 1 . . 1 . 
+        . 1 1 . . 1 . 
+        . 1 1 1 . 1 . 
+        . 1 . 1 1 1 . 
+        . 1 . . 1 1 . 
+        . 1 . . 1 1 . 
+        . 1 . . . 1 . 
+        `, SpriteKind.Player)
+    N.setPosition(25, 73)
+}
+function Rock () {
+    R3 = sprites.create(img`
+        . . 1 1 1 . . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 1 1 1 1 . 
+        . 1 1 1 . . . 
+        . 1 . 1 1 . . 
+        . 1 . . . 1 . 
+        `, SpriteKind.Player)
+    R3.setPosition(64, 43)
+    O = sprites.create(img`
+        . . . . . . . 
+        . . 1 1 1 . . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . . 1 1 1 . . 
+        . . . . . . . 
+        `, SpriteKind.Player)
+    O.setPosition(64, 53)
+    C = sprites.create(img`
+        . . . . . . . 
+        . . 1 1 1 1 . 
+        . 1 . . . . . 
+        . 1 . . . . . 
+        . 1 . . . . . 
+        . . 1 1 1 1 . 
+        . . . . . . . 
+        `, SpriteKind.Player)
+    C.setPosition(64, 63)
+    K = sprites.create(img`
+        . 1 . . 1 1 . 
+        . 1 . 1 1 . . 
+        . 1 1 1 . . . 
+        . 1 1 1 . . . 
+        . 1 . 1 1 . . 
+        . 1 . . 1 1 . 
+        . 1 . . . 1 . 
+        `, SpriteKind.Player)
+    K.setPosition(64, 73)
+}
+info.onCountdownEnd(function () {
+    enemySprite.follow(Hero)
+})
+function River () {
+    R = sprites.create(img`
+        . . 1 1 1 . . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 1 1 1 1 . 
+        . 1 1 1 . . . 
+        . 1 . 1 1 . . 
+        . 1 . . . 1 . 
+        `, SpriteKind.Player)
+    R.setPosition(25, 43)
+    I = sprites.create(img`
+        . . . . . . . 
+        . . . 1 . . . 
+        . . . 1 . . . 
+        . . . 1 . . . 
+        . . . 1 . . . 
+        . . . 1 . . . 
+        . . . 1 . . . 
+        `, SpriteKind.Player)
+    I.setPosition(35, 43)
+    V = sprites.create(img`
+        . . . . . . . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . . 1 . 1 . . 
+        . . . 1 . . . 
+        `, SpriteKind.Player)
+    V.setPosition(44, 43)
+    E = sprites.create(img`
+        . 1 1 1 1 1 . 
+        . 1 . . . . . 
+        . 1 . . . . . 
+        . 1 1 1 1 . . 
+        . 1 . . . . . 
+        . 1 . . . . . 
+        . 1 1 1 1 1 . 
+        `, SpriteKind.Player)
+    E.setPosition(54, 43)
+    R2 = sprites.create(img`
+        . . 1 1 1 . . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 1 1 1 1 . 
+        . 1 1 1 . . . 
+        . 1 . 1 1 . . 
+        . 1 . . . 1 . 
+        `, SpriteKind.Player)
+    R2.setPosition(64, 43)
+}
+function Valley () {
+    V2 = sprites.create(img`
+        . . . . . . . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . . 1 . 1 . . 
+        . . . 1 . . . 
+        `, SpriteKind.Player)
+    V2.setPosition(44, 44)
+    A2 = sprites.create(img`
+        . . 1 1 1 . . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 1 1 1 1 . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        `, SpriteKind.Player)
+    A2.setPosition(44, 54)
+    L = sprites.create(img`
+        . . . . . . . 
+        . 1 . . . . . 
+        . 1 . . . . . 
+        . 1 . . . . . 
+        . 1 . . . . . 
+        . 1 1 1 1 1 . 
+        . . . . . . . 
+        `, SpriteKind.Player)
+    L.setPosition(44, 63)
+    L2 = sprites.create(img`
+        . . . . . . . 
+        . 1 . . . . . 
+        . 1 . . . . . 
+        . 1 . . . . . 
+        . 1 . . . . . 
+        . 1 1 1 1 1 . 
+        . . . . . . . 
+        `, SpriteKind.Player)
+    L2.setPosition(44, 73)
+    E2 = sprites.create(img`
+        . 1 1 1 1 1 . 
+        . 1 . . . . . 
+        . 1 . . . . . 
+        . 1 1 1 1 . . 
+        . 1 . . . . . 
+        . 1 . . . . . 
+        . 1 1 1 1 1 . 
+        `, SpriteKind.Player)
+    E2.setPosition(44, 83)
+    Y = sprites.create(img`
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . 1 . . . 1 . 
+        . . 1 1 1 . . 
+        . . . 1 . . . 
+        . . . 1 . . . 
+        . . . 1 . . . 
+        `, SpriteKind.Player)
+    Y.setPosition(44, 94)
+}
+sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
+    game.gameOver(false)
+})
+function Nest () {
+    N3 = sprites.create(img`
+        . 1 1 . . 1 . 
+        . 1 1 . . 1 . 
+        . 1 1 1 . 1 . 
+        . 1 . 1 1 1 . 
+        . 1 . . 1 1 . 
+        . 1 . . 1 1 . 
+        . 1 . . . 1 . 
+        `, SpriteKind.Player)
+    N3.setPosition(93, 83)
+    E3 = sprites.create(img`
+        . 1 1 1 1 1 . 
+        . 1 . . . . . 
+        . 1 . . . . . 
+        . 1 1 1 1 . . 
+        . 1 . . . . . 
+        . 1 . . . . . 
+        . 1 1 1 1 1 . 
+        `, SpriteKind.Player)
+    E3.setPosition(102, 83)
+    S = sprites.create(img`
+        . 1 1 1 1 1 . 
+        . 1 . . . . . 
+        . 1 . . . . . 
+        . 1 1 1 1 1 . 
+        . . . . . 1 . 
+        . . . . . 1 . 
+        . 1 1 1 1 1 . 
+        `, SpriteKind.Player)
+    S.setPosition(112, 83)
+    D = sprites.create(img`
+        . . . . . . . 
+        . 1 1 1 1 1 . 
+        . . . 1 . . . 
+        . . . 1 . . . 
+        . . . 1 . . . 
+        . . . 1 . . . 
+        . . . . . . . 
+        `, SpriteKind.Player)
+    D.setPosition(122, 83)
+}
+info.onScore(35, function () {
+    game.gameOver(true)
+})
+let S: Sprite = null
+let E3: Sprite = null
+let N3: Sprite = null
+let Y: Sprite = null
+let E2: Sprite = null
+let L2: Sprite = null
+let L: Sprite = null
+let A2: Sprite = null
+let V2: Sprite = null
+let R2: Sprite = null
+let E: Sprite = null
+let V: Sprite = null
+let I: Sprite = null
+let K: Sprite = null
+let C: Sprite = null
+let O: Sprite = null
+let R3: Sprite = null
+let N: Sprite = null
+let I2: Sprite = null
+let A: Sprite = null
+let R: Sprite = null
+let P: Sprite = null
+let M: Sprite = null
+let A3: Sprite = null
+let C2: Sprite = null
+let D: Sprite = null
+let N2: Sprite = null
+let O2: Sprite = null
+let P2: Sprite = null
+let pond: Sprite = null
 let camp: Sprite = null
+let rock: Sprite = null
+let valley: Sprite = null
+let rain: Sprite = null
 let river: Sprite = null
+let user_input = ""
+let Hero: Sprite = null
+let enemySprite: Sprite = null
+let Screen = game.askForString("type \"start\" to begin.")
+info.startCountdown(90)
 scene.setBackgroundImage(img`
     dddddddddddddddd111111d1dddddddddddddddd111111111111111111111ddddddddddddddddddddddd1111111ddddddddddddddddddddddddddddddbbbbbbbbbbbbbbbbbbbbb111111111111
     11dddddddddddddddddddddddddddddddddb11111111111111111111111111111ddddddddddddddddddddddd11111ddddddddddddddddddddddddddbbbbbbbbbbbbbbbbbbbbb11111111111111
@@ -222,6 +619,7 @@ scene.setBackgroundImage(img`
     ..........................................................................................................................................................
     ..........................................................................................................................................................
     `)
+HINTS()
 info.setScore(0)
 let nameslist = [
 "river",
@@ -232,7 +630,7 @@ let nameslist = [
 "pond",
 "nest"
 ]
-let enemySprite = sprites.create(img`
+enemySprite = sprites.create(img`
     ........................
     ........................
     ........................
@@ -257,8 +655,8 @@ let enemySprite = sprites.create(img`
     ........................
     ........................
     ........................
-    `, SpriteKind.Player)
-let Hero = sprites.create(img`
+    `, SpriteKind.Enemy)
+Hero = sprites.create(img`
     . . . . . . 5 . 5 . . . . . . . 
     . . . . . f 5 5 5 f f . . . . . 
     . . . . f 1 5 2 5 1 6 f . . . . 
@@ -285,4 +683,25 @@ if (info.score() == 40) {
 }
 if (info.score() == 40) {
     game.gameOver(true)
+}
+if (user_input == "river" || user_input == "River") {
+    River()
+}
+if (user_input == "rock" || user_input == "Rock") {
+    Rock()
+}
+if (user_input == "rain" || user_input == "Rain") {
+    Rain()
+}
+if (user_input == "valley" || user_input == "Valley") {
+    Valley()
+}
+if (user_input == "camp" || user_input == "Camp") {
+    Camp()
+}
+if (user_input == "pond" || user_input == "Pond") {
+    Pond()
+}
+if (user_input == "nest" || user_input == "Nest") {
+    Nest()
 }
