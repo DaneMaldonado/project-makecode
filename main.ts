@@ -686,22 +686,29 @@ if (info.score() == 40) {
 }
 if (user_input == "river" || user_input == "River") {
     River()
+    info.changeScoreBy(5)
 }
 if (user_input == "rock" || user_input == "Rock") {
     Rock()
+    info.changeScoreBy(5)
 }
 if (user_input == "rain" || user_input == "Rain") {
     Rain()
+    info.changeScoreBy(5)
 }
 if (user_input == "valley" || user_input == "Valley") {
     Valley()
+    info.changeScoreBy(5)
 }
 if (user_input == "camp" || user_input == "Camp") {
     Camp()
+    info.changeScoreBy(5)
 }
 if (user_input == "pond" || user_input == "Pond") {
     Pond()
+    info.changeScoreBy(5)
 }
 if (user_input == "nest" || user_input == "Nest") {
     Nest()
+    info.changeScoreBy(5)
 }
